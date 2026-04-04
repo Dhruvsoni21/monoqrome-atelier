@@ -1,0 +1,69 @@
+[
+    {
+        "id": "1",
+        "slug": "the-art-of-silence-minimalism-in-2026",
+        "title": "The Art of Silence: Why Minimalism is Evolving",
+        "excerpt": "Minimalism is no longer just about less. It's about intentionality, warmth, and the luxury of space in a crowded world.",
+        "content": "\n            <p>In a world that screams for attention, silence is the ultimate luxury. Start with the void. The empty space is not a lack of content, but a canvas for thought.</p>\n            <h3 id=\"shift-from-cold-to-warm\">The Shift from Cold to Warm</h3>\n            <p>Gone are the days of sterile, hospital-like white boxes. The new minimalism embraces texture, natural light, and organic materials. It's about feeling the grain of the wood, the coolness of the stone, and the warmth of the sun.</p>\n            <p>We believe that a home should be a sanctuary—a place where the mind can rest. This requires a careful curation of objects, a disciplined approach to color, and an unwavering commitment to quality.</p>\n        ",
+        "coverImage": "/blog/minimalism.jpg",
+        "date": "October 12, 2025",
+        "category": "Philosophy",
+        "author": "Dhruv",
+        "readTime": "5 min read",
+        "tableOfContents": [
+            {
+                "id": "shift-from-cold-to-warm",
+                "title": "The Shift from Cold to Warm"
+            }
+        ]
+    },
+    {
+        "id": "2",
+        "slug": "wabi-sabi-finding-beauty-in-imperfection",
+        "title": "Wabi-Sabi: Finding Beauty in Imperfection",
+        "excerpt": "Embracing the cracks, the wear, and the history of objects. How Wabi-Sabi influences modern luxury interiors.",
+        "content": "\n            <p>Nothing lasts, nothing is finished, and nothing is perfect. Accept this, and you find a profound sense of peace. Wabi-sabi is the Japanese aesthetic of accepting transience and imperfection.</p>\n            <h3 id=\"texture-as-narrative\">Texture as Narrative</h3>\n            <p>A chipped ceramic bowl, a weathered wooden table, a wall with the patina of time—these are not defects. They are stories. In our designs, we seek to incorporate materials that age gracefully, that tell a story of their own.</p>\n            <blockquote>\"The most beautiful things are those that have lived.\"</blockquote>\n        ",
+        "coverImage": "/blog/wabi-sabi.jpg",
+        "date": "November 03, 2025",
+        "category": "Interior Design",
+        "author": "Dhruv",
+        "readTime": "4 min read",
+        "tableOfContents": [
+            {
+                "id": "texture-as-narrative",
+                "title": "Texture as Narrative"
+            }
+        ]
+    },
+    {
+        "id": "3",
+        "slug": "light-as-a-material",
+        "title": "Light as a Material: Sculpting Space",
+        "excerpt": "Light is not just for visibility. It is a physical presence that shapes architecture and defines mood.",
+        "content": "\n            <p>We often think of materials as solid—wood, concrete, glass. But light is the most malleable material of all. It changes throughout the day, altering the perception of space and form.</p>\n            <h3 id=\"shadow-play\">Shadow Play</h3>\n            <p>Without shadow, there is no depth. We design spaces that embrace the interplay of light and shadow, creating dynamic environments that evolve from sunrise to sunset.</p>\n        ",
+        "coverImage": "/blog/light.jpg",
+        "date": "December 15, 2025",
+        "category": "Architecture",
+        "author": "Dhruv",
+        "readTime": "6 min read",
+        "tableOfContents": [
+            {
+                "id": "shadow-play",
+                "title": "Shadow Play"
+            }
+        ]
+    },
+    {
+        "id": "4",
+        "slug": "sustainable-luxury-future-of-living",
+        "title": "Sustainable Luxury: The Future of Living",
+        "excerpt": "True luxury is conscious. Exploring how high-end design is leading the way in sustainability without compromising aesthetics.",
+        "content": "\n            <p>Sustainability is no longer a choice; it is a necessity. But it doesn't mean sacrificing beauty. In fact, the most sustainable choices are often the most beautiful—timeless, durable, and natural.</p>\n        ",
+        "coverImage": "/blog/sustainable.jpg",
+        "date": "January 20, 2026",
+        "category": "Lifestyle",
+        "author": "Dhruv",
+        "readTime": "3 min read",
+        "tableOfContents": []
+    }
+]
