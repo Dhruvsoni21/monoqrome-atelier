@@ -3,12 +3,17 @@ import admin from 'firebase-admin';
 // Make sure we haven't already initialized an app
 if (!admin.apps.length) {
     try {
+        let pk = process.env.FIREBASE_PRIVATE_KEY || '';
+        // If Vercel wrapped the key in quotes, strip them
+        pk = pk.replace(/^"|"$/g, '');
+        // Convert literal \n strings to actual newlines
+        pk = pk.replace(/\\n/g, '\n');
+
         admin.initializeApp({
             credential: admin.credential.cert({
                 projectId: process.env.FIREBASE_PROJECT_ID,
                 clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-                // Netlify and Vercel sometimes escape the newline characters, so we need to handle that safely:
-                privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+                privateKey: pk,
             }),
         });
     } catch (error) {
