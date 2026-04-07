@@ -129,7 +129,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
                                 </div>
                                 <div>
                                     <p className="text-white font-serif text-lg">Written by {post.author}</p>
-                                    <p className="text-stone-500 text-sm">Lead Architect @ MonoQrome</p>
+                                    <p className="text-stone-500 text-sm">{post.authorDescription || "Lead Architect @ MonoQrome"}</p>
                                 </div>
                             </div>
                         </div>

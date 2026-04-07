@@ -3,7 +3,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { createPortal } from "react-dom";
 import { useStyle } from "@/lib/StyleContext";
 
 type Category = "all" | "residences" | "workspaces" | "hospitality" | "conceptual";
@@ -18,6 +17,8 @@ interface Project {
     thumbnail?: string;
     featured?: boolean;
 }
+
+
 
 function getYouTubeID(url: string) {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
@@ -44,7 +45,6 @@ export default function ProjectsSection() {
     const isInView = useInView(ref, { once: true, margin: "-100px" });
     const [activeFilter, setActiveFilter] = useState<Category>("all");
     const [fetchedProjects, setFetchedProjects] = useState<Project[]>([]);
-    const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
     const { content, hasSelected } = useStyle();
 
     useEffect(() => {
@@ -53,17 +53,6 @@ export default function ProjectsSection() {
             .then(data => setFetchedProjects(data))
             .catch(console.error);
     }, []);
-
-    useEffect(() => {
-        if (selectedVideo) {
-            window.dispatchEvent(new Event("lenis-stop"));
-        } else {
-            window.dispatchEvent(new Event("lenis-start"));
-        }
-        return () => {
-            window.dispatchEvent(new Event("lenis-start"));
-        };
-    }, [selectedVideo]);
 
     // Use style content if selected, otherwise use default
     const displayContent = hasSelected && content ? content : defaultContent;
@@ -160,7 +149,12 @@ export default function ProjectsSection() {
                                     className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-6"
                                     onClick={() => {
                                         if (project.youtubeUrl) {
-                                            setSelectedVideo(project.youtubeUrl);
+                                            const videoId = getYouTubeID(project.youtubeUrl);
+                                            if (videoId) {
+                                                window.open(`/video/${videoId}`, "_blank", "noopener,noreferrer");
+                                            } else {
+                                                window.open(project.youtubeUrl, "_blank", "noopener,noreferrer");
+                                            }
                                         }
                                     }}
                                 >
@@ -176,33 +170,6 @@ export default function ProjectsSection() {
                 </motion.div>
             </div>
 
-            {/* Video Modal */}
-            {selectedVideo && typeof document !== 'undefined' && createPortal(
-                <div
-                    data-lenis-prevent="true"
-                    className="fixed inset-0 z-[150] flex items-center justify-center bg-black/90 px-4"
-                    onClick={() => setSelectedVideo(null)}
-                >
-                    <div
-                        className="w-full max-w-5xl aspect-video bg-black relative shadow-2xl"
-                        onClick={e => e.stopPropagation()}
-                    >
-                        <iframe
-                            src={`https://www.youtube.com/embed/${getYouTubeID(selectedVideo)}?autoplay=1`}
-                            className="w-full h-full"
-                            allowFullScreen
-                            title="YouTube Video"
-                        />
-                    </div>
-                    <button
-                        className="absolute top-8 right-8 text-white text-4xl hover:text-[#cd853f] transition-colors"
-                        onClick={() => setSelectedVideo(null)}
-                    >
-                        ×
-                    </button>
-                </div>,
-                document.body
-            )}
         </section>
     );
 }

@@ -14,7 +14,7 @@ export default function BlogPage() {
     const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
 
     useEffect(() => {
-        fetch("/api/blogs")
+        fetch("/api/blogs", { cache: "no-store" })
             .then(res => res.json())
             .then(data => setBlogPosts(data))
             .catch(console.error);
@@ -72,7 +72,7 @@ export default function BlogPage() {
 
                 {/* Posts Grid */}
                 <section className="px-[5vw] max-w-[1400px] mx-auto pb-32">
-                    <div className="grid grid-cols-2 gap-4 md:gap-8 lg:grid-cols-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:grid-cols-3">
                         {blogPosts.map((post, index) => (
                             <motion.div
                                 key={post.id}

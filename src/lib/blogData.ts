@@ -7,6 +7,7 @@ export interface BlogPost {
     date: string;
     category: "Architecture" | "Interior Design" | "Lifestyle" | "Philosophy" | string;
     author: string;
+    authorDescription?: string;
     readTime: string;
     tableOfContents?: { id: string; title: string }[];
 }

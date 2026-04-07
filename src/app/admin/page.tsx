@@ -4,10 +4,93 @@ import { useState, useEffect, useCallback } from "react";
 import { useQuill } from "react-quilljs";
 import 'quill/dist/quill.snow.css';
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, LogOut } from "lucide-react";
 
 export default function AdminPage() {
     const [activeTab, setActiveTab] = useState<"projects" | "blogs">("projects");
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+    const [loginUsername, setLoginUsername] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
+    const [loginError, setLoginError] = useState("");
+
+    useEffect(() => {
+        fetch("/api/auth/check")
+            .then(res => setIsAuthenticated(res.ok))
+            .catch(() => setIsAuthenticated(false));
+    }, []);
+
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoginError("");
+        try {
+            const res = await fetch("/api/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username: loginUsername, password: loginPassword })
+            });
+            if (res.ok) {
+                setIsAuthenticated(true);
+            } else {
+                const data = await res.json();
+                setLoginError(data.error || "Login Failed");
+            }
+        } catch (error) {
+            setLoginError("An error occurred. Please try again.");
+        }
+    };
+
+    const handleLogout = async () => {
+        await fetch("/api/auth/logout", { method: "POST" });
+        setIsAuthenticated(false);
+    };
+
+    if (isAuthenticated === null) {
+        return <div className="min-h-screen bg-black flex items-center justify-center text-[#cd853f] font-serif tracking-widest uppercase text-sm">Loading...</div>;
+    }
+
+    if (!isAuthenticated) {
+        return (
+            <div className="min-h-screen bg-black flex items-center justify-center font-sans px-4">
+                <div className="max-w-md w-full bg-stone-900 border border-stone-800 p-8 md:p-12">
+                    <h1 className="text-3xl font-serif text-white mb-2 text-center">Admin Access</h1>
+                    <p className="text-xs text-stone-500 text-center uppercase tracking-[0.2em] mb-10">MonoQrome Atelier</p>
+                    
+                    <form onSubmit={handleLogin} className="space-y-6">
+                        <div>
+                            <label className="block text-xs uppercase tracking-wider text-stone-500 mb-2">Admin ID</label>
+                            <input 
+                                required 
+                                type="text" 
+                                className="w-full bg-black border border-stone-800 p-3 text-white text-sm focus:outline-none focus:border-[#cd853f] transition-colors"
+                                value={loginUsername}
+                                onChange={e => setLoginUsername(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs uppercase tracking-wider text-stone-500 mb-2">Password</label>
+                            <input 
+                                required 
+                                type="password" 
+                                className="w-full bg-black border border-stone-800 p-3 text-white text-sm focus:outline-none focus:border-[#cd853f] transition-colors"
+                                value={loginPassword}
+                                onChange={e => setLoginPassword(e.target.value)}
+                            />
+                        </div>
+                        {loginError && <p className="text-red-500 text-xs text-center border border-red-500/20 bg-red-500/10 p-2">{loginError}</p>}
+                        <button type="submit" className="w-full py-4 mt-4 bg-[#cd853f] text-black text-xs uppercase tracking-[0.2em] font-medium hover:bg-[#b07030] transition-colors">
+                            Authenticate
+                        </button>
+                        <div className="pt-6 border-t border-stone-800 text-center">
+                           <Link href="/" className="inline-flex items-center text-stone-500 hover:text-white transition-colors text-xs tracking-[0.1em] uppercase">
+                               <ArrowLeft className="w-3 h-3 mr-2" />
+                               Return to Website
+                           </Link>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <>
@@ -48,10 +131,16 @@ export default function AdminPage() {
             <div className="max-w-7xl mx-auto">
                 <div className="flex flex-col md:flex-row md:justify-between md:items-center justify-start gap-4 mb-8">
                     <h1 className="text-4xl md:text-5xl font-serif font-light text-white">Admin Dashboard</h1>
-                    <Link href="/" className="inline-flex items-center text-[#cd853f] hover:text-white transition-colors text-xs tracking-[0.2em] uppercase font-medium">
-                        <ArrowLeft className="w-4 h-4 mr-2" />
-                        Return to Website
-                    </Link>
+                    <div className="flex items-center gap-6">
+                        <Link href="/" className="inline-flex items-center text-[#cd853f] hover:text-white transition-colors text-xs tracking-[0.2em] uppercase font-medium">
+                            <ArrowLeft className="w-4 h-4 mr-2" />
+                            Return to Website
+                        </Link>
+                        <button onClick={handleLogout} className="inline-flex items-center text-stone-500 hover:text-red-400 transition-colors text-xs tracking-[0.2em] uppercase font-medium">
+                            <LogOut className="w-4 h-4 mr-2" />
+                            Logout
+                        </button>
+                    </div>
                 </div>
                 <div className="flex space-x-4 mb-8 border-b border-stone-800 pb-4">
                     <button
@@ -357,7 +446,7 @@ function ProjectManager() {
 
 function BlogManager() {
     const initialFormState = {
-        title: "", content: "", date: new Date().toISOString().split('T')[0], category: "Architecture", author: "Dhruv", readTime: "", coverImage: ""
+        title: "", content: "", date: new Date().toISOString().split('T')[0], category: "Architecture", author: "Dhruv", authorDescription: "Lead Architect @ MonoQrome", readTime: "", coverImage: ""
     };
     const [formData, setFormData] = useState(initialFormState);
     const [imageFile, setImageFile] = useState<File | null>(null);
@@ -374,13 +463,21 @@ function BlogManager() {
         setIsMounted(true);
         fetchBlogs();
         
-        import("quill").then((QuillModule) => {
+        import("quill").then(async (QuillModule) => {
             const Quill = QuillModule.default;
             if (Quill) {
                 const Font = Quill.import('formats/font') as any;
                 // Add new fonts to the original whitelist array instead of replacing it, so default works
                 Font.whitelist = ['cormorant', 'montserrat', 'arial', 'comic-sans', 'times-new-roman', 'sans-serif', 'serif', 'monospace'];
                 Quill.register(Font, true);
+
+                // Register BlotFormatter for image resizing
+                try {
+                    const { default: BlotFormatter } = await import('quill-blot-formatter');
+                    Quill.register('modules/blotFormatter', BlotFormatter);
+                } catch (e) {
+                    console.error("Failed to load blot formatter", e);
+                }
             }
             setQuillReady(true);
         });
@@ -411,11 +508,12 @@ function BlogManager() {
         modules: {
             toolbar: [
                 [{ 'font': [false, 'serif', 'monospace', 'cormorant', 'montserrat', 'arial', 'comic-sans', 'times-new-roman'] }, { 'header': [2, 3, false] }],
+                [{ 'align': [] }],
                 ['bold', 'italic', 'underline', 'strike', 'blockquote'],
                 [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                ['link', 'image'],
-                ['clean']
-            ]
+                ['link', 'image']
+            ],
+            blotFormatter: {}
         }
     });
 
@@ -549,6 +647,7 @@ function BlogManager() {
             date: blog.date || new Date().toISOString().split('T')[0],
             category: blog.category || "Architecture",
             author: blog.author || "Dhruv",
+            authorDescription: blog.authorDescription || "Lead Architect @ MonoQrome",
             readTime: blog.readTime || "",
             coverImage: blog.coverImage || ""
         });
@@ -632,6 +731,10 @@ function BlogManager() {
                     <div>
                         <label className="block text-xs uppercase tracking-wider text-stone-500 mb-2">Author</label>
                         <input required type="text" className={inputClasses} value={formData.author} onChange={e => setFormData({ ...formData, author: e.target.value })} />
+                    </div>
+                    <div>
+                        <label className="block text-xs uppercase tracking-wider text-stone-500 mb-2">Author Description</label>
+                        <input required type="text" className={inputClasses} value={formData.authorDescription} onChange={e => setFormData({ ...formData, authorDescription: e.target.value })} placeholder="e.g. Lead Architect @ MonoQrome" />
                     </div>
                     <div>
                         <label className="block text-xs uppercase tracking-wider text-stone-500 mb-2">Read Time</label>

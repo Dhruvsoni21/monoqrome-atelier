@@ -3,6 +3,8 @@ import { db } from '@/lib/firebase-admin';
 import { JSDOM } from 'jsdom';
 import { v4 as uuidv4 } from 'uuid';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
     try {
         const blogsSnapshot = await db.collection('blogs').orderBy('createdAt', 'desc').get();
