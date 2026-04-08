@@ -16,7 +16,13 @@ export default function BlogPage() {
     useEffect(() => {
         fetch("/api/blogs", { cache: "no-store" })
             .then(res => res.json())
-            .then(data => setBlogPosts(data))
+            .then(data => {
+                if (Array.isArray(data)) {
+                    setBlogPosts(data);
+                } else {
+                    console.error("Failed to load blogs:", data);
+                }
+            })
             .catch(console.error);
     }, []);
 

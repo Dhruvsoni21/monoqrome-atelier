@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { db } from '@/lib/firebase-admin';
+import { getDb } from '@/lib/firebase-admin';
 import { cookies } from 'next/headers';
 
 export async function POST(req: Request) {
@@ -7,6 +7,7 @@ export async function POST(req: Request) {
         const { username, password } = await req.json();
 
         // Query Firestore for matching credentials
+        const db = getDb();
         const credsSnapshot = await db.collection('credentials')
             .where('ID', '==', username)
             .where('PASSWORD', '==', password)

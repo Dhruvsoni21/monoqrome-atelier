@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
-import { db } from '@/lib/firebase-admin';
-import { JSDOM } from 'jsdom';
+import { getDb } from '@/lib/firebase-admin';
 import { v4 as uuidv4 } from 'uuid';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
     try {
+        const db = getDb();
         const blogsSnapshot = await db.collection('blogs').orderBy('createdAt', 'desc').get();
         const blogs = blogsSnapshot.docs.map(doc => ({
             id: doc.id,
@@ -29,6 +29,7 @@ export async function POST(req: Request) {
         const tableOfContents: { id: string, title: string }[] = [];
 
         if (processedContent) {
+            const { JSDOM } = await import('jsdom');
             const dom = new JSDOM(processedContent);
             const document = dom.window.document;
             const h2Tags = document.querySelectorAll('h2');
@@ -63,6 +64,7 @@ export async function POST(req: Request) {
         };
 
         // 4. Save to Firestore
+        const db = getDb();
         await db.collection('blogs').doc(blogId).set(blogData);
 
         return NextResponse.json(blogData, { status: 201 });
@@ -85,6 +87,7 @@ export async function PUT(req: Request) {
         const tableOfContents: { id: string, title: string }[] = [];
 
         if (processedContent) {
+            const { JSDOM } = await import('jsdom');
             const dom = new JSDOM(processedContent);
             const document = dom.window.document;
             const h2Tags = document.querySelectorAll('h2');
@@ -107,6 +110,7 @@ export async function PUT(req: Request) {
             updatedAt: new Date().toISOString()
         };
 
+        const db = getDb();
         await db.collection('blogs').doc(updatedData.id).update(blogData);
         return NextResponse.json(blogData, { status: 200 });
     } catch (error) {
@@ -123,6 +127,7 @@ export async function DELETE(req: Request) {
             return NextResponse.json({ error: 'Missing blog id' }, { status: 400 });
         }
 
+        const db = getDb();
         await db.collection('blogs').doc(id).delete();
         return NextResponse.json({ success: true }, { status: 200 });
     } catch (error) {
