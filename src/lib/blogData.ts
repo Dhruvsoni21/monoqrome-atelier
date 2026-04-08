@@ -10,4 +10,5 @@ export interface BlogPost {
     authorDescription?: string;
     readTime: string;
     tableOfContents?: { id: string; title: string }[];
+    faqs?: { question: string; answer: string }[];
 }

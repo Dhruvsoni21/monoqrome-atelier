@@ -9,6 +9,8 @@ import { BlogPost } from "@/lib/blogData";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LenisProvider from "@/components/LenisProvider";
+import FAQSection from "@/components/FAQSection";
+import BlogCTA from "@/components/BlogCTA";
 import { useRef, use, useEffect, useState } from "react";
 
 // Correctly typing params for App Router page
@@ -57,53 +59,56 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
             <main className="bg-black min-h-screen text-stone-200" ref={ref}>
                 <Navbar />
 
-                <header className="relative h-[60vh] md:h-[70vh] overflow-hidden w-full bg-stone-900 flex items-center justify-center">
-                    <motion.div
-                        style={{ opacity }}
-                        className="absolute inset-0 z-0"
-                    >
-                        {post.coverImage ? (
-                            <img src={post.coverImage} alt={post.title} className="w-full h-full object-cover opacity-50" />
-                        ) : (
-                            <div className="w-full h-full bg-gradient-to-br from-stone-800 to-stone-950 opacity-50" />
-                        )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10 pointer-events-none" />
-                    </motion.div>
-                </header>
+                {/* Hero Section styled like the reference */}
+                <div className="pt-24 md:pt-32 pb-8 px-4 md:px-[5vw] max-w-[1600px] mx-auto">
+                    {/* Rounded Image Container */}
+                    <div className="relative h-[50vh] md:h-[65vh] w-full rounded-[2rem] overflow-hidden bg-stone-900 border border-white/10 shadow-2xl">
+                        <motion.div style={{ opacity }} className="absolute inset-0">
+                            {post.coverImage ? (
+                                <img src={post.coverImage} alt={post.title} className="w-full h-full object-cover" />
+                            ) : (
+                                <div className="w-full h-full bg-gradient-to-br from-stone-800 to-stone-950" />
+                            )}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                        </motion.div>
+                    </div>
+
+                    {/* Overlapping Card - Bottom Left */}
+                    <div className="relative z-30 mt-[-60px] md:mt-[-100px] ml-2 md:ml-12 max-w-4xl bg-stone-900 text-white rounded-2xl md:rounded-3xl shadow-2xl p-6 md:p-10 border border-white/5">
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8 }}
+                            className="flex items-start gap-4 md:gap-6"
+                        >
+                            {/* Circular Back Button */}
+                            <Link
+                                href="/blog"
+                                className="mt-1 flex-shrink-0 w-8 h-8 md:w-10 md:h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 hover:border-white/40 text-stone-400 hover:text-white transition-all group"
+                                aria-label="Back to Journal"
+                            >
+                                <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 group-hover:-translate-x-0.5 transition-transform" />
+                            </Link>
+
+                            {/* Title & Meta Info */}
+                            <div>
+                                <h1 className="font-serif text-3xl md:text-5xl lg:text-5xl font-medium text-white leading-[1.1] mb-4 text-balance">
+                                    {post.title}
+                                </h1>
+                                <div className="flex flex-wrap items-center gap-2 text-sm text-stone-400 font-medium tracking-wide">
+                                    <span>{post.date}</span>
+                                    <span className="opacity-50">|</span>
+                                    <span>{post.category || "General"}</span>
+                                    <span className="opacity-50">|</span>
+                                    <span className="text-[#cd853f] font-semibold">{post.readTime || "5 Minutes"} Read</span>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
 
                 {/* Article Content Area */}
                 <div className="relative z-20 bg-black min-h-screen">
-                    {/* Overlapping Header Card */}
-                    <div className="max-w-[1200px] mx-auto px-6 mt-[-10vh] md:mt-[-15vh] relative z-30">
-                        <div className="bg-stone-900 border border-white/5 shadow-2xl rounded-3xl p-8 md:p-16 flex flex-col items-center text-center">
-                            <motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8 }}
-                                className="w-full max-w-3xl mx-auto"
-                            >
-                                <Link
-                                    href="/blog"
-                                    className="inline-flex items-center text-xs tracking-[0.2em] uppercase text-[#cd853f] mb-8 hover:text-white transition-colors"
-                                >
-                                    <ArrowLeft className="w-4 h-4 mr-2" /> Back to Journal
-                                </Link>
-
-                                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-tight mb-8 text-white text-balance capitalize">
-                                    {post.title}
-                                </h1>
-
-                                <div className="flex flex-col flex-wrap sm:flex-row items-center justify-center gap-3 sm:gap-6 text-sm text-stone-400 font-light tracking-wide">
-                                    <span>{post.date}</span>
-                                    <span className="hidden sm:inline">•</span>
-                                    <span>{post.category || "General"}</span>
-                                    <span className="hidden sm:inline">•</span>
-                                    <span className="text-[#cd853f]">{post.readTime || "5 Min Read"}</span>
-                                </div>
-                            </motion.div>
-                        </div>
-                    </div>
-
                     {/* Content & TOC */}
                     <article className="max-w-[1200px] mx-auto px-6 py-16 md:py-24 flex flex-col lg:flex-row gap-12 lg:gap-24">
 
@@ -155,6 +160,16 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
                             </aside>
                         )}
                     </article>
+
+                    {/* SEO FAQs */}
+                    {post.faqs && post.faqs.length > 0 && (
+                        <div className="border-t border-white/5 bg-black/50">
+                            <FAQSection faqs={post.faqs} />
+                        </div>
+                    )}
+
+                    {/* Premium Lead Gen CTA */}
+                    <BlogCTA />
                 </div>
 
                 <Footer />

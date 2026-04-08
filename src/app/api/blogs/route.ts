@@ -78,7 +78,7 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
     try {
         const updatedData = await req.json();
-        
+
         if (!updatedData.id) {
             return NextResponse.json({ error: 'Missing blog id' }, { status: 400 });
         }

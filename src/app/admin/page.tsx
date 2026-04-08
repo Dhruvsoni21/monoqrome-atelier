@@ -446,7 +446,7 @@ function ProjectManager() {
 
 function BlogManager() {
     const initialFormState = {
-        title: "", content: "", date: new Date().toISOString().split('T')[0], category: "Architecture", author: "Dhruv", authorDescription: "Lead Architect @ MonoQrome", readTime: "", coverImage: ""
+        title: "", content: "", date: new Date().toISOString().split('T')[0], category: "Architecture", author: "Dhruv", authorDescription: "Lead Architect @ MonoQrome", readTime: "", coverImage: "", faqs: [] as { question: string, answer: string }[]
     };
     const [formData, setFormData] = useState(initialFormState);
     const [imageFile, setImageFile] = useState<File | null>(null);
@@ -649,7 +649,8 @@ function BlogManager() {
             author: blog.author || "Dhruv",
             authorDescription: blog.authorDescription || "Lead Architect @ MonoQrome",
             readTime: blog.readTime || "",
-            coverImage: blog.coverImage || ""
+            coverImage: blog.coverImage || "",
+            faqs: blog.faqs || []
         });
         setEditingId(blog.id);
         setImageFile(null);
@@ -824,6 +825,63 @@ function BlogManager() {
                         )}
                     </div>
                 </div>
+
+                {/* Dynamic FAQs Section */}
+                {!isFullscreen && (
+                    <div className="border border-stone-800 p-6 space-y-4">
+                        <div className="flex justify-between items-center mb-4">
+                            <div>
+                                <label className="block text-xs uppercase tracking-wider text-stone-500 mb-1">Frequently Asked Questions (SEO)</label>
+                                <p className="text-xs text-stone-500">Adding FAQs embeds schema markup into Google Search to boost your site ranking.</p>
+                            </div>
+                            <button 
+                                type="button" 
+                                onClick={() => setFormData({ ...formData, faqs: [...formData.faqs, { question: "", answer: "" }] })}
+                                className="px-4 py-2 border border-[#cd853f] text-[#cd853f] text-xs uppercase tracking-widest hover:bg-[#cd853f] hover:text-black transition-colors"
+                            >
+                                + Add FAQ
+                            </button>
+                        </div>
+                        
+                        {formData.faqs.map((faq, index) => (
+                            <div key={index} className="bg-stone-900 border border-stone-800 p-4 space-y-4 relative group">
+                                <button 
+                                    type="button" 
+                                    onClick={() => setFormData({ ...formData, faqs: formData.faqs.filter((_, i) => i !== index) })}
+                                    className="absolute top-4 right-4 text-xs text-stone-500 hover:text-red-500 uppercase tracking-widest font-bold"
+                                >
+                                    Remove
+                                </button>
+                                <div>
+                                    <label className="block text-xs uppercase tracking-wider text-stone-500 mb-2">Question {index + 1}</label>
+                                    <input 
+                                        type="text" 
+                                        className={inputClasses} 
+                                        value={faq.question} 
+                                        onChange={e => {
+                                            const newFaqs = [...formData.faqs];
+                                            newFaqs[index].question = e.target.value;
+                                            setFormData({ ...formData, faqs: newFaqs });
+                                        }} 
+                                        placeholder="e.g. What is MonoQrome Atelier's philosophy?" 
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs uppercase tracking-wider text-stone-500 mb-2">Answer</label>
+                                    <textarea 
+                                        className={inputClasses + " min-h-[80px] resize-y"} 
+                                        value={faq.answer} 
+                                        onChange={e => {
+                                            const newFaqs = [...formData.faqs];
+                                            newFaqs[index].answer = e.target.value;
+                                            setFormData({ ...formData, faqs: newFaqs });
+                                        }} 
+                                    />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
 
                 <div className="flex gap-4">
                     <button type="submit" disabled={status.includes("Saving")} className="px-6 py-3 bg-[#cd853f] text-black text-sm uppercase tracking-wider font-medium hover:bg-[#b07030] transition-colors disabled:opacity-50">
