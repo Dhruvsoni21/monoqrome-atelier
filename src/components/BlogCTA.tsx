@@ -2,51 +2,81 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
+import Image from "next/image";
+import { ArrowDownRight, Instagram, Twitter, Facebook } from "lucide-react";
 
 export default function BlogCTA() {
     return (
         <section className="py-24 px-4 md:px-[5vw] max-w-[1400px] mx-auto w-full relative z-30">
+            {/* Main Container with Background */}
             <motion.div 
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className="relative overflow-hidden rounded-[2rem] bg-stone-900 border border-white/5 py-24 px-6 md:px-16 text-center flex flex-col items-center"
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                className="relative overflow-hidden rounded-[3rem] min-h-[600px] flex items-center justify-center border border-white/10 group"
             >
-                {/* Elegant subtle glow */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-1/2 bg-gradient-to-b from-[#cd853f]/5 to-transparent blur-3xl rounded-full" />
+                {/* Background Image with subtle zoom on hover */}
+                <div className="absolute inset-0 z-0">
+                    <Image
+                        src="/architectural-cta-bg.png"
+                        alt="Architectural Vibe"
+                        fill
+                        className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                        priority
+                    />
+                    <div className="absolute inset-0 bg-black/30 backdrop-grayscale-[0.2]" />
+                </div>
 
-                <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
+                {/* Glassmorphic Panel */}
+                <div className="relative z-10 w-[90%] md:w-[85%] max-w-5xl bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-8 md:p-16 flex flex-col items-start justify-between min-h-[450px] shadow-2xl">
                     
-                    <span className="flex items-center justify-center gap-2 text-xs uppercase tracking-[0.3em] font-semibold text-[#cd853f] mb-8">
-                        <Sparkles className="w-3 h-3" />
-                        Bring Your Vision to Life
-                    </span>
+                    {/* Top Row: Socials & Menu Placeholder */}
+                    <div className="w-full flex justify-between items-start mb-12">
+                        <div className="flex gap-6 text-white/60">
+                            <Facebook className="w-5 h-5 cursor-pointer hover:text-[#cd853f] transition-colors" />
+                            <Twitter className="w-5 h-5 cursor-pointer hover:text-[#cd853f] transition-colors" />
+                            <Instagram className="w-5 h-5 cursor-pointer hover:text-[#cd853f] transition-colors" />
+                        </div>
+                        <div className="flex flex-col gap-1.5 cursor-pointer group/menu">
+                            <span className="w-8 h-[2px] bg-white group-hover/menu:w-6 transition-all" />
+                            <span className="w-6 h-[2px] bg-white group-hover/menu:w-8 transition-all" />
+                        </div>
+                    </div>
 
-                    <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white font-light tracking-wide leading-[1.2] mb-8 text-balance">
-                        Every Masterpiece Begins With a <span className="italic text-stone-400">Conversation.</span>
-                    </h2>
-                    
-                    <p className="text-stone-400 text-lg md:text-xl font-light mb-12 leading-relaxed max-w-2xl text-balance">
-                        Whether you are reimagining a single room or designing a complete residence, collaborate with MonoQrome Atelier to translate your dream home into a profound reality.
-                    </p>
+                    {/* Middle Row: Luxury Headline & Circular Arrow */}
+                    <div className="w-full flex flex-col md:flex-row justify-between items-end gap-12">
+                        <div className="max-w-2xl">
+                            <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl text-white font-light tracking-tight leading-[0.9] mb-8">
+                                TRANSLATING <br />
+                                <span className="italic text-stone-300">VISION</span> INTO <br />
+                                REALITY
+                            </h2>
+                            <p className="text-white/60 text-lg md:text-xl font-light max-w-lg mb-8 leading-relaxed">
+                                Our design philosophy balances the poetic with the precise. Begin your journey toward a masterpiece today.
+                            </p>
+                            
+                            <Link href="/contact" className="inline-flex items-center gap-4 group/btn">
+                                <span className="text-xs uppercase tracking-[0.3em] font-semibold text-white border-b border-white/20 pb-1 group-hover/btn:border-white transition-all">
+                                    Discuss Post
+                                </span>
+                                <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover/btn:bg-white group-hover/btn:text-black transition-all">
+                                    <ArrowDownRight className="w-5 h-5" />
+                                </div>
+                            </Link>
+                        </div>
 
-                    <Link 
-                        href="/contact" 
-                        className="group relative inline-flex items-center justify-center px-10 py-5 bg-[#cd853f] text-black text-xs font-semibold tracking-[0.2em] uppercase hover:bg-[#b07030] transition-colors duration-500 rounded-sm"
-                    >
-                        <span>Discuss Your Project</span>
-                        <ArrowRight className="w-4 h-4 ml-4 group-hover:translate-x-1.5 transition-transform duration-300" />
-                    </Link>
+                        {/* Large Circular Arrow - Signature Element */}
+                        <div className="hidden md:flex w-32 h-32 rounded-full border border-white/10 items-center justify-center text-white/20 hover:text-white hover:border-white/40 transition-all duration-700 cursor-pointer group/circle">
+                            <ArrowDownRight className="w-16 h-16 group-hover/circle:translate-x-1 group-hover/circle:translate-y-1 transition-transform" />
+                        </div>
+                    </div>
 
-                    {/* Trust Line */}
-                    <div className="mt-14 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[10px] md:text-xs uppercase tracking-[0.2em] text-stone-500 font-medium">
-                        <span>Free Consultation</span>
-                        <span className="text-stone-700">•</span>
-                        <span>No Obligation</span>
-                        <span className="text-stone-700">•</span>
-                        <span>Expert Guidance</span>
+                    {/* Bottom Row: Trust Line */}
+                    <div className="w-full mt-16 pt-8 border-t border-white/5 flex flex-wrap gap-x-8 gap-y-4 text-[10px] uppercase tracking-[0.4em] text-white/40 font-medium">
+                        <span className="hover:text-[#cd853f] cursor-default transition-colors">Free Consultation</span>
+                        <span className="hover:text-[#cd853f] cursor-default transition-colors">No Obligation</span>
+                        <span className="hover:text-[#cd853f] cursor-default transition-colors">Expert Guidance</span>
                     </div>
                 </div>
             </motion.div>
