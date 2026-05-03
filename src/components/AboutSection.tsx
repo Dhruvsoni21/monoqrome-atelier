@@ -4,11 +4,13 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { useStyle } from "@/lib/StyleContext";
+import Image from "next/image";
+
 
 const stats = [
-    { number: "250+", label: "Projects Completed" },
-    { number: "98%", label: "Client Satisfaction" },
-    { number: "35+", label: "Design Awards" },
+    { number: "96%", label: "Client Satisfaction" },
+    { number: "40+", label: "Turnkey Projects" },
+    { number: "83%", label: "Turn Around Time" },
 ];
 
 // Default content when no style selected
@@ -42,10 +44,16 @@ export default function AboutSection() {
                         transition={{ duration: 0.8 }}
                         className="relative"
                     >
-                        <div className="aspect-[4/5] bg-gradient-to-br from-stone-800 to-stone-900 flex items-center justify-center">
-                            <span className="text-2xl text-stone-600 font-serif italic">
-                                Design Philosophy
-                            </span>
+                        <div className="aspect-[4/5] relative overflow-hidden group">
+                            <Image
+                                src="/about_us.JPG"
+                                alt="Design Philosophy"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                sizes="(max-width: 768px) 100vw, 50vw"
+                                priority
+                            />
+                            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500" />
                         </div>
 
                         {/* Floating Card */}
@@ -56,10 +64,10 @@ export default function AboutSection() {
                             className="absolute -bottom-8 -left-8 bg-[#cd853f] p-8 shadow-2xl"
                         >
                             <span className="block text-5xl font-serif font-semibold text-black">
-                                15+
+                                12+
                             </span>
                             <span className="text-xs font-semibold tracking-[0.1em] uppercase text-black/80">
-                                Years of Excellence
+                                Years of Experience
                             </span>
                         </motion.div>
                     </motion.div>

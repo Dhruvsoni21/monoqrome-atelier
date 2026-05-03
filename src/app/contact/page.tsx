@@ -50,14 +50,7 @@ export default function ContactPage() {
                             <div className="space-y-8 border-t border-white/10 pt-12">
                                 <div>
                                     <h4 className="text-[10px] uppercase tracking-[0.2em] font-semibold text-white/40 mb-2">Email Inquiries</h4>
-                                    <p className="text-lg font-serif italic text-white hover:text-[#cd853f] transition-colors cursor-pointer">hello@monoqrome.design</p>
-                                </div>
-                                <div>
-                                    <h4 className="text-[10px] uppercase tracking-[0.2em] font-semibold text-white/40 mb-2">Visit our Studio</h4>
-                                    <p className="text-stone-400 font-light">
-                                        123 Architecture Lane, <br />
-                                        Design District, NY 10001
-                                    </p>
+                                    <a href="mailto:monoqromeatelier05@gmail.com" className="text-lg font-serif italic text-white hover:text-[#cd853f] transition-colors cursor-pointer block">monoqromeatelier05@gmail.com</a>
                                 </div>
                             </div>
                         </motion.div>
@@ -79,27 +72,27 @@ export default function ContactPage() {
                                     <form onSubmit={handleSubmit} className="space-y-6">
                                         <div className="grid md:grid-cols-2 gap-6">
                                             <div className="space-y-2">
-                                                <label className="text-[10px] uppercase tracking-widest text-stone-500 ml-1">First Name</label>
-                                                <input required type="text" className="w-full bg-black/40 border border-white/5 rounded-xl px-5 py-3 text-white focus:outline-none focus:border-[#cd853f] transition-all" placeholder="John" />
+                                                <label className="text-[10px] uppercase tracking-widest text-stone-500 ml-1">First Name <span className="text-[#cd853f]">*</span></label>
+                                                <input required type="text" className="w-full bg-black/40 border border-white/5 rounded-xl px-5 py-3 text-white focus:outline-none focus:border-[#cd853f] transition-all" placeholder="Enter your first name" />
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-[10px] uppercase tracking-widest text-stone-500 ml-1">Last Name</label>
-                                                <input required type="text" className="w-full bg-black/40 border border-white/5 rounded-xl px-5 py-3 text-white focus:outline-none focus:border-[#cd853f] transition-all" placeholder="Doe" />
+                                                <label className="text-[10px] uppercase tracking-widest text-stone-500 ml-1">Last Name <span className="text-[#cd853f]">*</span></label>
+                                                <input required type="text" className="w-full bg-black/40 border border-white/5 rounded-xl px-5 py-3 text-white focus:outline-none focus:border-[#cd853f] transition-all" placeholder="Enter your last name" />
                                             </div>
                                         </div>
 
                                         <div className="space-y-2">
-                                            <label className="text-[10px] uppercase tracking-widest text-stone-500 ml-1">Work Email</label>
-                                            <input required type="email" className="w-full bg-black/40 border border-white/5 rounded-xl px-5 py-3 text-white focus:outline-none focus:border-[#cd853f] transition-all" placeholder="john@atelier.com" />
+                                            <label className="text-[10px] uppercase tracking-widest text-stone-500 ml-1">Work Email <span className="text-[#cd853f]">*</span></label>
+                                            <input required type="email" className="w-full bg-black/40 border border-white/5 rounded-xl px-5 py-3 text-white focus:outline-none focus:border-[#cd853f] transition-all" placeholder="Enter your work email" />
                                         </div>
 
                                         <div className="space-y-2">
                                             <label className="text-[10px] uppercase tracking-widest text-stone-500 ml-1">Phone Number</label>
-                                            <input required type="tel" className="w-full bg-black/40 border border-white/5 rounded-xl px-5 py-3 text-white focus:outline-none focus:border-[#cd853f] transition-all" placeholder="+1 (555) 000-0000" />
+                                            <input required type="tel" className="w-full bg-black/40 border border-white/5 rounded-xl px-5 py-3 text-white focus:outline-none focus:border-[#cd853f] transition-all" placeholder="Enter your phone number" />
                                         </div>
 
                                         <div className="space-y-2">
-                                            <label className="text-[10px] uppercase tracking-widest text-stone-500 ml-1">The Vision</label>
+                                            <label className="text-[10px] uppercase tracking-widest text-stone-500 ml-1">Your Requirement</label>
                                             <textarea required rows={4} className="w-full bg-black/40 border border-white/5 rounded-xl px-5 py-3 text-white focus:outline-none focus:border-[#cd853f] transition-all resize-none" placeholder="Briefly describe your dream space..." />
                                         </div>
 
@@ -112,7 +105,7 @@ export default function ContactPage() {
                                                 <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
                                             ) : (
                                                 <>
-                                                    <span>Connect with our studio</span>
+                                                    <span>Connect With Us</span>
                                                     <Send className="w-3 h-3" />
                                                 </>
                                             )}

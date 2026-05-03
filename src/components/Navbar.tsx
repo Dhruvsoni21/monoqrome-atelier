@@ -89,7 +89,7 @@ export default function Navbar() {
             >
                 <div className="relative w-10 h-10 md:w-12 md:h-12 transition-transform duration-500 group-hover:scale-110">
                     <Image
-                        src="/logo.png"
+                        src="/monoqrome_logo.svg"
                         alt="MonoQrome Favicon"
                         fill
                         className="object-contain"
@@ -180,7 +180,7 @@ export default function Navbar() {
                         >
                             <div className="relative w-10 h-10 md:w-12 md:h-12">
                                 <Image
-                                    src="/logo.png"
+                                    src="/monoqrome_logo.svg"
                                     alt="MonoQrome Favicon"
                                     fill
                                     className="object-contain"
@@ -248,7 +248,7 @@ export default function Navbar() {
                             transition={{ delay: 0.5, duration: 0.5 }}
                             className="absolute bottom-8 left-6 right-6 md:left-10 md:right-10 flex flex-col md:flex-row justify-between items-center gap-4 text-stone-500 text-xs tracking-widest"
                         >
-                            <span>hello@monoqrome.design</span>
+                            <a href="mailto:monoqromeatelier05@gmail.com" className="hover:text-white transition-colors">monoqromeatelier05@gmail.com</a>
                             <span>© 2026 MonoQrome Atelier</span>
                         </motion.div>
                     </motion.div>

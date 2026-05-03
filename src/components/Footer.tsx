@@ -39,8 +39,8 @@ export default function Footer() {
                         <span className="font-serif text-2xl md:text-3xl font-semibold tracking-[0.15em] text-white">
                             MonoQrome <span className="text-stone-400 font-light">Atelier</span>
                         </span>
-                        <p className="text-stone-400 mt-4 max-w-sm">
-                            Transforming spaces into extraordinary experiences
+                        <p className="text-stone-400 mt-4 max-w-md leading-relaxed">
+                            Transforming spaces into extraordinary experiences that resonate beyond the visual. We design with emotion, creating spaces that comfort, inspire, and connect with the people who inhabit them. Every space becomes a reflection of personality, a canvas of memories, and a place where life unfolds beautifully.
                         </p>
                     </motion.div>
 
@@ -84,24 +84,31 @@ export default function Footer() {
                             <ul className="space-y-3 text-sm text-stone-400">
                                 <li>
                                     <a
-                                        href="mailto:hello@kaku.design"
+                                        href="mailto:monoqromeatelier05@gmail.com"
                                         className="hover:text-white transition-colors"
                                     >
-                                        hello@kaku.design
+                                        monoqromeatelier05@gmail.com
                                     </a>
                                 </li>
                                 <li>
                                     <a
-                                        href="tel:+1234567890"
+                                        href="tel:+919898475157"
                                         className="hover:text-white transition-colors"
                                     >
-                                        +1 (234) 567-890
+                                        +91 98984 75157
                                     </a>
                                 </li>
-                                <li className="leading-relaxed">
-                                    123 Design Street
-                                    <br />
-                                    New York, NY 10001
+                                <li>
+                                    <a
+                                        href="https://maps.app.goo.gl/DUVxJBtcG9wgptrr5"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="hover:text-white transition-colors leading-relaxed block"
+                                    >
+                                        H704, Ashray 9, New Ranip,
+                                        <br />
+                                        Ahmedabad - 382480, Gujarat, INDIA.
+                                    </a>
                                 </li>
                             </ul>
                         </div>
