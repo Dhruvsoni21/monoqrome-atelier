@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   description:
     "Transforming spaces into extraordinary experiences. MonoQrome Atelier offers premium interior design services for residential and commercial projects.",
   keywords: "MonoQrome Atelier, interior design, luxury design, residential design, commercial design, architecture",
+  icons: {
+    icon: "/monoqrome_logo.svg",
+  },
 };
 
 export default function RootLayout({
