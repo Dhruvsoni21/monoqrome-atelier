@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowDownRight, Instagram, Twitter, Facebook } from "lucide-react";
+import { ArrowDownRight } from "lucide-react";
 
 export default function BlogCTA() {
     return (
@@ -29,15 +29,10 @@ export default function BlogCTA() {
                 </div>
 
                 {/* Glassmorphic Panel */}
-                <div className="relative z-10 w-[90%] md:w-[85%] max-w-5xl bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-8 md:p-16 flex flex-col items-start justify-between min-h-[450px] shadow-2xl">
+                <div className="relative z-10 w-[95%] sm:w-[90%] md:w-[85%] max-w-5xl bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[2rem] md:rounded-[2.5rem] p-6 sm:p-8 md:p-16 flex flex-col items-start justify-between min-h-[450px] shadow-2xl">
                     
-                    {/* Top Row: Socials & Menu Placeholder */}
-                    <div className="w-full flex justify-between items-start mb-12">
-                        <div className="flex gap-6 text-white/60">
-                            <Facebook className="w-5 h-5 cursor-pointer hover:text-[#cd853f] transition-colors" />
-                            <Twitter className="w-5 h-5 cursor-pointer hover:text-[#cd853f] transition-colors" />
-                            <Instagram className="w-5 h-5 cursor-pointer hover:text-[#cd853f] transition-colors" />
-                        </div>
+                    {/* Top Row: Menu Placeholder */}
+                    <div className="w-full flex justify-end items-start mb-12">
                         <div className="flex flex-col gap-1.5 cursor-pointer group/menu">
                             <span className="w-8 h-[2px] bg-white group-hover/menu:w-6 transition-all" />
                             <span className="w-6 h-[2px] bg-white group-hover/menu:w-8 transition-all" />
@@ -46,13 +41,13 @@ export default function BlogCTA() {
 
                     {/* Middle Row: Luxury Headline & Circular Arrow */}
                     <div className="w-full flex flex-col md:flex-row justify-between items-end gap-12">
-                        <div className="max-w-2xl">
-                            <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl text-white font-light tracking-tight leading-[0.9] mb-8">
+                        <div className="max-w-2xl w-full">
+                            <h2 className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl text-white font-light tracking-tight leading-[1] md:leading-[0.9] mb-6 md:mb-8 break-words">
                                 TRANSLATING <br />
                                 <span className="italic text-stone-300">VISION</span> INTO <br />
                                 REALITY
                             </h2>
-                            <p className="text-white/60 text-lg md:text-xl font-light max-w-lg mb-8 leading-relaxed">
+                            <p className="text-white/60 text-base md:text-xl font-light max-w-lg mb-8 leading-relaxed">
                                 Our design philosophy balances the poetic with the precise. Begin your journey toward a masterpiece today.
                             </p>
                             
