@@ -96,7 +96,7 @@ export default function Navbar() {
                         priority
                     />
                 </div>
-                <div className="hidden md:flex flex-col">
+                <div className="flex flex-col">
                     <span className="font-serif text-lg md:text-xl font-medium tracking-[0.1em] text-white/90 leading-none group-hover:text-white transition-colors">
                         MonoQrome
                     </span>
